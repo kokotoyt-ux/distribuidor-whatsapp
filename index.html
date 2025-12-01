@@ -1,1 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecionando...</title>
+</head>
+<body>
+<script>
+  // Lista dos números dos vendedores
+  const vendedores = [
+    "5562992065314",
+    "5562999633672",
+    "5562991901239",
+    "5562985567647"
+  ];
+
+  // Mensagem padrão
+  const mensagem = encodeURIComponent("Olá! Vim do Instagram e gostaria de saber mais.");
+
+  // Index salvo no navegador
+  let index = localStorage.getItem("wppIndex");
+  if (!index) index = 0;
+
+  // Seleciona o vendedor
+  const numero = vendedores[index];
+
+  // Link final
+  const url = `https://wa.me/${numero}?text=${mensagem}`;
+
+  // Próximo da fila
+  index = (Number(index) + 1) % vendedores.length;
+  localStorage.setItem("wppIndex", index);
+
+  // Redireciona
+  window.location.href = url;
+</script>
+</body>
+</html>
 
