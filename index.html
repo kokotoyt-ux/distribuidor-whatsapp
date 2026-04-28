@@ -1,39 +1,30 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Redirecionando...</title>
-</head>
 <body>
-<script>
-  // Lista dos números dos vendedores
-  const vendedores = [
-    "556236700183",
-    "556293014883",
-    "556293027383",
-    "556294412238"
-  ];
+  <div style="text-align: center; margin-top: 50px; font-family: sans-serif;">
+    <h2>Redirecionando para o nosso WhatsApp...</h2>
+    <p>Se você não for redirecionado em alguns segundos, <a id="linkManual" href="#">clique aqui</a>.</p>
+  </div>
 
-  // Mensagem padrão
-  const mensagem = encodeURIComponent("Olá! Vim do Instagram e gostaria de fazer um orçamento.");
+  <script>
+    const vendedores = [
+      "556236700183",
+      "556293014883",
+      "556293027383",
+      "556294412238"
+    ];
 
-  // Index salvo no navegador
-  let index = localStorage.getItem("wppIndex");
-  if (!index) index = 0;
+    const mensagem = encodeURIComponent("Olá! Vim do Instagram e gostaria de fazer um orçamento.");
 
-  // Seleciona o vendedor
-  const numero = vendedores[index];
+    let index = localStorage.getItem("wppIndex") || 0;
+    const numero = vendedores[index];
+    const url = `https://wa.me/${numero}?text=${mensagem}`;
 
-  // Link final
-  const url = `https://wa.me/${numero}?text=${mensagem}`;
+    index = (Number(index) + 1) % vendedores.length;
+    localStorage.setItem("wppIndex", index);
 
-  // Próximo da fila
-  index = (Number(index) + 1) % vendedores.length;
-  localStorage.setItem("wppIndex", index);
+    // Configura o link manual caso o redirecionamento automático trave
+    document.getElementById("linkManual").href = url;
 
-  // Redireciona
-  window.location.href = url;
-</script>
+    // Redireciona
+    window.location.href = url;
+  </script>
 </body>
-</html>
-
